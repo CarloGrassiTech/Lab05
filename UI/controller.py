@@ -1,6 +1,6 @@
 import flet as ft
 
-import database.corso_DAO
+import database.DAO
 
 
 class Controller:
