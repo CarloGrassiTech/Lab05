@@ -1,14 +1,16 @@
+from dataclasses import dataclass
+@dataclass
 class Studente:
-    def __init__(self,matricola,nome,cognome,cds):
-        self.matricola = matricola
-        self.nome = nome
-        self.cognome = cognome
-        self.cds =cds
-        self.corsiList = []
+    matricola: int
+    cognome: str
+    nome: str
+    CDS: str
 
     def __str__(self):
-        return f"({self.matricola}) nome: {self.nome}, cognome: {self.cognome}"
-    def __hash__(self):
-       return self.matricola
+        return f"{self.matricola}-{self.cognome}-{self.nome}"
+
     def __eq__(self, other):
-        return self.matricola==other
+        return self.matricola == other.matricola
+
+    def __lt__(self, other):
+        return self.matricola < other.matricola

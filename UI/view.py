@@ -30,7 +30,7 @@ class View(ft.UserControl):
 
         # button for the "hello" reply
         self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca iscritti", on_click=self._controller.handle_btn_cerca_iscritti)
-        self.corso_dropdown = ft.Dropdown(options=self._controller.get_corsi(), on_change="", width=700)
+        self.corso_dropdown = ft.Dropdown(width=700, options = self._controller.get_corsi())
         row1 = ft.Row([self.corso_dropdown, self.btn_cerca_iscritti],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
@@ -39,9 +39,8 @@ class View(ft.UserControl):
         self.txt_nome = ft.TextField(
             label="nome",
             width=300,
-            read_only=True
         )
-        self.txt_cognome = ft.TextField(label = "cognome", width=300,  read_only=True)
+        self.txt_cognome = ft.TextField(label = "cognome", width=300)
         row2 = ft.Row([self.txt_matricola, self.txt_nome, self.txt_cognome], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row2)
 

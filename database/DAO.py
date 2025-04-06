@@ -1,38 +1,58 @@
-import database.DB_connect as d
-import model.studente as s
-import model.corso as c
-class DAO():
-    @classmethod
-    def get_corsi(self):
-        cnx = d.get_connection()
-        result = []
-        cursor = cnx.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM corso")
-        for row in cursor:
-            result.append(c.Corso(row["codins"], row["crediti"], row["nome"], row["pd"]))
-        cursor.close()
-        cnx.close()
-        return result
+import mysql
 
-    @classmethod
-    def get_studenti(self):
-        cnx = d.get_connection()
-        result = []
-        cursor = cnx.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM studente")
-        for row in cursor:
-            result.append(s.Studente(row["matricola"], row["cognome"], row["nome"], row["CDS"]))
-        cursor.close()
-        cnx.close()
+from database.DB_connect import get_connection
+from model.Analogie import Analogie
+from model.corso import Corso
+from model.studente import Studente
 
-    @classmethod
-    def get_analogie(self):
-        cnx = d.get_connection()
-        result = []
+
+class DAO:
+    @staticmethod
+    def getAllCorsi():
+        cnx = get_connection()
         cursor = cnx.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM iscrizione")
+
+        query = """SELECT * FROM corso"""
+        cursor.execute(query)
+
+        res = []
         for row in cursor:
-            result.append(c.Corso.tupla.append(row["matricola"], row["codins"]))
+            res.append(Corso(**row))
+        # processa res
+
         cursor.close()
         cnx.close()
-        return result
+        return res
+    @staticmethod
+    def getAllStudenti():
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+
+        query = """SELECT * FROM studente"""
+        cursor.execute(query)
+
+        res = []
+        for row in cursor:
+            res.append(Studente(**row))
+        # processa res
+
+        cursor.close()
+        cnx.close()
+        return res
+
+    @staticmethod
+    def getAllAnalogie():
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+
+        query = """SELECT * FROM iscrizione"""
+        cursor.execute(query)
+
+        res = []
+        for row in cursor:
+            res.append(Analogie(**row))
+        # processa res
+
+        cursor.close()
+        cnx.close()
+        return res
